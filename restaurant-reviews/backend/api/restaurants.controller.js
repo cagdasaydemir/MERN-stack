@@ -33,3 +33,7 @@ export default class RestaurantsController {
     res.json(response);
   }
 }
+
+//to search text in names, a new index is needed to be added in mongoDbAtlas
+// "<field1>": "<type>",
+//  "name": "text",
