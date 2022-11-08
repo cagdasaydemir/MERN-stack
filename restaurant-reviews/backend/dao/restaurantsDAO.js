@@ -21,7 +21,7 @@ export default class RestaurantsDAO {
     page = 0,
     restaurantsPerPage = 30,
   } = {}) {
-    let query;
+    let query
     if (filters) {
       if ("name" in filters) {
         query = { $text: { $search: filters["name"] } };
