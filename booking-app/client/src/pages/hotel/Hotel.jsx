@@ -10,7 +10,7 @@ import {
   faCircleXmark,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 const Hotel = () => {
 
   const [slideNumber, setSlideNumber] = useState(0);
@@ -39,7 +39,6 @@ const Hotel = () => {
   const handleOpen = (index) => {
     setSlideNumber(index);
     setSliderOpen(true);
-
   }
   const handleMove = (direction) => {
     let newSlideNumber;
@@ -53,13 +52,23 @@ const Hotel = () => {
     setSlideNumber(newSlideNumber)
 
   }
+  useEffect(() => {
+    if (sliderOpen) {
+      document.body
+        .style.overflow = 'hidden'
+    } else {
+      document.body
+        .style.overflow = 'unset'
+    }
+
+  }, [sliderOpen])
 
   return (
-    <div>
+    <div className="container">
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
-        {sliderOpen && (<div className="slider">
+      {sliderOpen && (
+        <div className="slider">
           <FontAwesomeIcon
             icon={faCircleXmark}
             className="close"
@@ -79,7 +88,10 @@ const Hotel = () => {
             onClick={() => handleMove("right")}
           />
 
-        </div>)}
+        </div>
+      )}
+      <div className="hotelContainer">
+
         <div className="hotelWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
           <h1 className="hotelTitle">Grand Hotel</h1>

@@ -2,6 +2,7 @@
   width: 100%;
   max-width: 1024px;
   font-size: 12px;
+  margin: 20px;
 }
 
 .fLists {
@@ -13,6 +14,7 @@
 
 .fList {
   list-style: none;
+  padding: 0;
 }
 
 .fListItem {
