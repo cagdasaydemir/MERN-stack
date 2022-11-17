@@ -14,10 +14,18 @@ const List = () => {
   const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
-  const [min, setMin] = useState(undefined);
-  const [max, setMax] = useState(undefined);
+  const [min, setMin] = useState(0);
+  const [max, setMax] = useState(1000);
 
   const { data, loading, error, reFetch } = useFetch(`/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`)
+
+  const handleOption = (name, value) => {
+    setOptions(prev => {
+      return {
+        ...prev, [name]: value,
+      };
+    });
+  };
 
   const handleSearch = () => {
     reFetch()
@@ -33,7 +41,7 @@ const List = () => {
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
               <label>Destination</label>
-              <input type="text" placeholder={destination} />
+              <input type="text" placeholder={destination} onChange={(e)=>setDestination(e.target.value)}/>
             </div>
             <div className="lsItem">
               <label>Check-in Date</label>
@@ -45,23 +53,23 @@ const List = () => {
               <div className="lsOptions">
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Min price <small>per night</small> </span>
-                  <input type="number" onChange={e => setMin(e.target.value)} className="lsOptionInput" />
+                  <input type="number" value={min} onChange={e => setMin(e.target.value)} className="lsOptionInput" />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Max price <small>per night</small> </span>
-                  <input type="number" onChange={e => setMax(e.target.value)} className="lsOptionInput" />
+                  <input type="number" value={max} onChange={e => setMax(e.target.value)} className="lsOptionInput" />
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Adult</span>
-                  <input type="number" min={1} className="lsOptionInput" placeholder={options.adult} />
+                  <input type="number" min={1} className="lsOptionInput" value={options.adult} onChange={(e) => handleOption("adult", e.target.valueAsNumber)}/>
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Children</span>
-                  <input type="number" min={0} className="lsOptionInput" placeholder={options.children} />
+                  <input type="number" min={0} className="lsOptionInput" value={options.children} onChange={(e) => handleOption("children", e.target.valueAsNumber)}/>
                 </div>
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Room</span>
-                  <input type="number" min={1} className="lsOptionInput" placeholder={options.room} />
+                  <input type="number" min={1} className="lsOptionInput" value={options.room} onChange={(e) => handleOption("room", e.target.valueAsNumber)}/>
                 </div>
               </div>
             </div>

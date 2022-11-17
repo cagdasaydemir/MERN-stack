@@ -20,14 +20,16 @@ import Reserve from "../../components/reserve/Reserve";
 const Hotel = () => {
   const location = useLocation()
   const id = location.pathname.split("/")[2]
+
   const [slideNumber, setSlideNumber] = useState(0);
   const [sliderOpen, setSliderOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+
   const { data, loading, error, reFetch } = useFetch(`/hotels/find/${id}`)
   const { user } = useContext(AuthContext)
-  const navigate = useNavigate()
-
   const { dates, options } = useContext(SearchContext)
+  const navigate = useNavigate()
+  console.log(dates)
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   const dayDifference = (date1, date2) => {
